@@ -26,6 +26,18 @@ const afunction = (function () {
         [6,7,8],
     ]
 
+    function checkWin() {
+        
+        a = JSON.stringify(winLines);
+        b = JSON.stringify(player1Moves);
+
+        const c = a.indexOf(b);
+        if (c != -1) {
+            console.log('did it work')
+        }
+        
+    }
+
     const container = document.querySelector('#container');
 
         for (let i = 0; i < 9; i++) { 
@@ -37,20 +49,19 @@ const afunction = (function () {
             box.classList.add('box');
             box.setAttribute('id', count++)
             container.appendChild(box);
+
+
             box.addEventListener('click', () => { 
                
                 if (player1.turn===true && box.textContent === '') {
                     
                     box.textContent = player1.mark;
-                    player1Moves.push(box.id);
-                    console.log(winLines.toString());
+                    player1Moves.push(parseInt(box.id));
+                    console.log(player1Moves);
                     player1.turn = false;
                     player2.turn = true;                    
 
-                    const test = winLines.toString().includes(player1Moves.toString());
-
-                    console.log(test)
-                    
+                    console.log(checkWin())
                 }
 
                 else if (player2.turn===true && box.textContent === '') {

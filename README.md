@@ -36,3 +36,4 @@ Restart/start:
 Problems:
 
 - figure out how to compare palyermoves and winLines to create winstate
+solution >> use JSON.stringify to run through all winLines and check against player1/2Moves??
