@@ -11,9 +11,12 @@ const afunction = (function () {
 
     
     let board = [];
+    let playerTurn
+    let currentClass = playerTurn ? 'player1' : 'player2'
     let count = 0;
     let player1Moves = [];
     let player2Moves = [];
+
 
     let winLines = [
         [0,1,2],
@@ -26,16 +29,26 @@ const afunction = (function () {
         [6,7,8],
     ]
 
-    function checkWin() {
-        
-        a = JSON.stringify(winLines);
-        b = JSON.stringify(player1Moves);
+    function playerState() {
 
-        const c = a.indexOf(b);
-        if (c != -1) {
-            console.log('did it work')
+        if (player1.turn === true) {
+            playerTurn = true
         }
-        
+
+        else if (player1.turn ===false) {
+            playerTurn = false
+        };
+
+    }
+
+    function checkWin(currentClass) {
+        const cellElements = document.querySelectorAll('#box');
+
+        return winLines.some(combination => {
+            return combination.every(index => {
+            return cellElements[index].classList.contains(currentClass)
+            })
+        })     
     }
 
     const container = document.querySelector('#container');
@@ -46,8 +59,7 @@ const afunction = (function () {
 
         board.forEach((item, index) => {
             const box =  document.createElement('div');
-            box.classList.add('box');
-            box.setAttribute('id', count++)
+            box.setAttribute('id', 'box')
             container.appendChild(box);
 
 
@@ -56,21 +68,28 @@ const afunction = (function () {
                 if (player1.turn===true && box.textContent === '') {
                     
                     box.textContent = player1.mark;
-                    player1Moves.push(parseInt(box.id));
-                    console.log(player1Moves);
-                    player1.turn = false;
-                    player2.turn = true;                    
+                    box.classList.add('player1');
 
+                    playerState()
+
+                    player1.turn = false;
+                    player2.turn = true;   
+
+                    console.log(playerTurn)
                     console.log(checkWin())
                 }
 
                 else if (player2.turn===true && box.textContent === '') {
 
                     box.textContent = player2.mark;
-                    player2Moves.push(box.id);
-                    console.log(player2Moves.sort());
+                    box.classList.add('player2');
+
+                    playerState()
+
                     player1.turn = true;
                     player2.turn = false;
+
+                    console.log(playerTurn)
                 }
 
                 else {

@@ -36,4 +36,6 @@ Restart/start:
 Problems:
 
 - figure out how to compare palyermoves and winLines to create winstate
-solution >> use JSON.stringify to run through all winLines and check against player1/2Moves??
+solution xx use JSON.stringify to run through all winLines and check against player1/2Moves??
+
+solution >> apply 'x' and 'o' classes to clicked boxes and then check if all elements ahve same class using index and then compare to winLines
